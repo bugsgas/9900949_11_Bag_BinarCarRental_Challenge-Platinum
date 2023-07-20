@@ -1,0 +1,85 @@
+.banner-css h1 {
+  color: #f1f3ff;
+}
+.banner-css p {
+  color: #f1f3ff;
+}
+
+.banner-css {
+  padding: 64px 64px;
+  border-radius: 13px;
+  width: 100%;
+  background-color: #0d28a6;
+}
+
+label,
+input {
+  margin: 0;
+  padding: 0;
+}
+
+.container-form {
+  background-color: #ffffff;
+  padding: 12px 0px;
+  border-radius: 7px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  bottom: 4.5rem;
+}
+
+.search-pad {
+  padding: 24px;
+}
+
+.col.car {
+  margin-top: 70px;
+  margin-bottom: 40px;
+  display: flex;
+}
+
+.row.align-items-end.result {
+  margin-bottom: 70px;
+}
+
+.dark-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+  z-index: 9999; /* Ensure it appears on top of other elements */
+}
+
+/* breadcrumbs */
+.breadcrumbs {
+  max-width: 1200px;
+  margin: 20px auto 20px 20px;
+}
+.breadcrumbs > * {
+  display: inline-block;
+  margin-right: 10px;
+}
+.breadcrumbs .crumb:after {
+  content: ">";
+  margin-left: 10px;
+}
+.breadcrumbs .crumb:last-child:after {
+  display: none;
+}
+.breadcrumbs .crumb a {
+  color: #686868;
+}
+
+.example-custom-input {
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.example-custom-input:hover {
+  background-color: darkblue;
+}
