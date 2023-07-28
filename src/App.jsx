@@ -24,6 +24,7 @@ import EditCar from "./admin/pages/EditCar";
 import AddCar from "./admin/pages/AddCar";
 import PaymentSteps from "./user/pages/PaymentSteps";
 import PaymentSteps2 from "./user/pages/PaymentSteps2";
+import PaymentSteps3 from "./user/pages/PaymentSteps3";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,8 +36,9 @@ const router = createBrowserRouter(
         <Route index element={<LandingPage />} />
         <Route path="carimobil" element={<CariMobil />} />
         <Route path="car/:id" element={<DetailMobil />} />
-        <Route path="payments" element={<PaymentSteps />} />
-        <Route path="payments-2" element={<PaymentSteps2 />} />
+        <Route path="confirm-payment" element={<PaymentSteps />} />
+        <Route path="upload-payment" element={<PaymentSteps2 />} />
+        <Route path="payment-complete" element={<PaymentSteps3 />} />
       </Route>
 
       {/* admin */}

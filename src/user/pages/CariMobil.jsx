@@ -12,11 +12,11 @@ import Hero from "../component/Hero";
 export default function CariMobil() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  useEffect(() => {
-    if (!token) {
-      navigate("/");
-    }
-  });
+  // useEffect(() => {
+  //   if (!token) {
+  //     navigate("/");
+  //   }
+  // });
 
   const [data, setData] = useState([]);
   const [err, setErr] = useState([]);

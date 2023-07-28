@@ -1,8 +1,8 @@
 import Hero from "../component/Hero";
-import OurServices from "../component/OurServices";
-import WhyUs from "../component/WhyUs";
-import Banner from "../component/Banner";
-import Faq from "../component/Faq";
+import WhyUs from "../component/LandingPage/WhyUs";
+import OurServices from "../component/LandingPage/OurServices";
+import Banner from "../component/LandingPage/Banner";
+import Faq from "../component/LandingPage/Faq";
 
 export default function LandingPage() {
   return (

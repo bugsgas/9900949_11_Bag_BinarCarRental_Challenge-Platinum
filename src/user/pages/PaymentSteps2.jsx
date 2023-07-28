@@ -1,108 +1,93 @@
 import React, { useState } from "react";
-import { RiCheckLine } from "react-icons/ri";
-
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import Hero from "../component/Hero";
-import DetailsBar from "../component/Payment1/DetailsBar";
-import BankButton from "../component/Payment1/BankButton";
-import BreadcrumbSteps from "../component/BreadcrumbSteps";
-import DetailPayments from "../component/Payment1/DetailPayments";
+import CountdownComponent from "../component/CountdownComponent";
+import PaymentConfirm from "../component/Payment2/PaymentConfirm";
+import BankBCA from "../component/Payment2/BankBCA";
+import BankBNI from "../component/Payment2/BankBNI";
+import BankMandiri from "../component/Payment2/BankMandiri";
+import PaymentHeader from "../component/PaymentHeader";
 
 const PaymentSteps2 = () => {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [bank, setBank] = useState("");
-  const [paymentConfirmation, setPaymentConfirmation] = useState("");
-  const [screenshot, setScreenshot] = useState("");
-  const handleStepChange = (step) => {
-    setCurrentStep(step);
-    // Handle any actions you want to perform when the step is changed.
+  // const [isDetailVisible, setIsDetailVisible] = useState(true);
+  // const [isShowUploadVisible, setIsShowUploadVisible] = useState(false);
+  // const [isSubmitVisible, setIsSubmitVisible] = useState(false);
+  // Step 1: Create a state variable to control the visibility of the countdown component
+  const [isCountdownVisible, setIsCountdownVisible] = useState(true);
+
+  // Step 2: Add a function to toggle the visibility of the countdown component
+  const toggleCountdownVisibility = () => {
+    setIsCountdownVisible((prevIsVisible) => !prevIsVisible);
   };
 
-  const steps = [
-    { id: 1, title: "Step 1: Choose Bank" },
-    { id: 2, title: "Step 2: Payment Confirmation" },
-    { id: 3, title: "Step 3: Upload Screenshot" },
+  const location = useLocation();
+  const { state } = location;
+  const { selectedButtonId } = state || {};
+  // const showComponent = () => {
+  //   setIsDetailVisible(false);
+  //   setIsShowUploadVisible(true);
+  //   setIsSubmitVisible(true);
+  //   setIsCountdownVisible(false); // Hide the countdown when Payment Confirm is clicked
+  // };
+
+  const breadcrumbItems = [
+    { id: 1, title: "Pilih Metode", active: true },
+    { id: 2, title: "Bayar", active: true },
+    { id: 3, title: "Tiket", active: false },
   ];
+
+  const renderComponentById = (id) => {
+    switch (id) {
+      case 1:
+        return <BankBCA />;
+      case 2:
+        return <BankBNI />;
+      case 3:
+        return <BankMandiri />;
+    }
+  };
+  const navigate = useNavigate();
+  const confirmButton = () => {
+    navigate("/payment-complete");
+  };
 
   return (
     <div>
-      <div>
-        <ul className="breadcrumbs">
-          {steps.map((step) => (
-            <li
-              key={step.id}
-              className={`breadcrumb-item${
-                currentStep === step.id ? " active" : ""
-              }${[1, 2].includes(step.id) ? " blue-highlight" : ""}`}
-              onClick={() => handleStepChange(step.id)}
-            >
-              {step.title}
-            </li>
-          ))}
-        </ul>
+      {/* Header */}
+      <div className="py-5" style={{ backgroundColor: "#F1F3FF" }}>
+        <PaymentHeader breadcrumbItems={breadcrumbItems} />
       </div>
-
-      <Hero showButton={false} showText={false} showImg={false} />
       <Col md={{ span: 10, offset: 1 }}>
         <Container>
-          <DetailsBar />
           <Row className="">
             <Col lg={8} xs={12} className="">
-              <BankButton />
+              {/* component show */}
+              <Card className="mt-5 p-4">
+                <div className="d-flex align-items-center justify-content-between">
+                  <div>
+                    <h5 className="m-0">Selesaikan Pembayaran Sebelum</h5>
+                    <p className="m-0">Rabu, 19 Mei 2022 jam 13.00 WIB</p>
+                  </div>
+                  <div>{isCountdownVisible && <CountdownComponent />}</div>
+                </div>
+              </Card>
+
+              <div>
+                {/* Render the component based on dataId */}
+                {renderComponentById(selectedButtonId)}
+              </div>
             </Col>
+
             <Col lg={4} xs={12} className="">
-              <DetailPayments />
+              <PaymentConfirm
+                confirmbutton={confirmButton}
+                toggleCountdownVisibility={toggleCountdownVisibility}
+              />
             </Col>
           </Row>
-
-          {currentStep === 1 && (
-            <>
-              <h2>Step 1: Choose Bank</h2>
-              <label>
-                Select Bank:
-                <select value={bank} onChange={(e) => setBank(e.target.value)}>
-                  <option value="">Select Bank</option>
-                  <option value="Bank A">Bank A</option>
-                  <option value="Bank B">Bank B</option>
-                  <option value="Bank C">Bank C</option>
-                </select>
-              </label>
-              <button onClick={() => handleStepChange(2)}>Next</button>
-            </>
-          )}
-
-          {currentStep === 2 && (
-            <>
-              <h2>Step 2: Payment Confirmation</h2>
-              <label>
-                Payment Confirmation:
-                <input
-                  type="text"
-                  value={paymentConfirmation}
-                  onChange={(e) => setPaymentConfirmation(e.target.value)}
-                />
-              </label>
-              <button onClick={() => handleStepChange(1)}>Previous</button>
-              <button onClick={() => handleStepChange(3)}>Next</button>
-            </>
-          )}
-
-          {currentStep === 3 && (
-            <>
-              <h2>Step 3: Upload Screenshot</h2>
-              <label>
-                Upload Screenshot:
-                <input
-                  type="file"
-                  onChange={(e) => setScreenshot(e.target.files[0])}
-                />
-              </label>
-              <button onClick={() => handleStepChange(2)}>Previous</button>
-              <button onClick={handleSubmit}>Submit Payment</button>
-            </>
-          )}
         </Container>
       </Col>
     </div>

@@ -83,3 +83,83 @@ input {
 .example-custom-input:hover {
   background-color: darkblue;
 }
+
+.toggle-button {
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.toggle-icon {
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.3s; /* Add the transition for the animation */
+}
+
+/* Rotate the arrow icon when isDetailsVisible is true */
+.toggle-icon.rotate {
+  transform: rotate(180deg);
+}
+
+/* CountdownComponent.css */
+.red-block {
+  display: inline-block;
+  background-color: #fa2c5a;
+  color: white;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.blue-circle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.blue-circle.active {
+  background-color: blue; /* Set the background color for the active state */
+  color: white; /* Set the text color for the active state */
+}
+
+.blue-circle.inactive {
+  border: 2px solid blue; /* Set the border style for the inactive state */
+  color: blue; /* Set the text color for the inactive state */
+}
+
+/* YourComponent.css (or any other CSS file) */
+.link-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* YourComponent.css (or any other CSS file) */
+.link-item:not(:last-child)::after {
+  content: "";
+  margin: 0 8px;
+  display: inline-block;
+  width: 15px; /* Set the width of the line */
+  height: 1px; /* Set the height of the line */
+  background-color: blue; /* Set the color of the line */
+}
+
+/* YourComponent.css (or any other CSS file) */
+.custom-button {
+  color: black; /* Set the text color to black */
+  text-decoration: none; /* Remove underline */
+}
+
+.custom-button:hover {
+  color: black; /* Set the text color to black on hover */
+}
+
+.preview-image:hover {
+  cursor: pointer;
+}

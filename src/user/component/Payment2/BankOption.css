@@ -1,0 +1,12 @@
+/* BankOption.css */
+
+/* Remove margin from the button group */
+.btn-group.btn-block.custom-btn-group {
+  margin: 0;
+}
+
+/* Apply custom styles to the buttons */
+.custom-btn {
+  border-radius: 0; /* Remove border-radius to make the buttons squared */
+  margin-right: 10px; /* Add spacing between buttons if needed */
+}

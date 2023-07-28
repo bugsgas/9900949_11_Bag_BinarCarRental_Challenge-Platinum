@@ -1,64 +1,51 @@
 import React, { useState } from "react";
-import { RiCheckLine } from "react-icons/ri";
-
-import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 import Hero from "../component/Hero";
 import DetailsBar from "../component/Payment1/DetailsBar";
-import BankButton from "../component/Payment1/BankButton";
-import BreadcrumbSteps from "../component/BreadcrumbSteps";
-import DetailPayments from "../component/Payment1/DetailPayments";
+import BankSelectionCard from "../component/Payment1/BankSelectionCard";
+import PaymentDetailsCard from "../component/Payment1/PaymentDetailsCard";
+import PaymentHeader from "../component/PaymentHeader";
 
 const PaymentSteps = () => {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [bank, setBank] = useState("");
-  const [paymentConfirmation, setPaymentConfirmation] = useState("");
-  const [screenshot, setScreenshot] = useState("");
+  const [isBankSelected, setIsBankSelected] = useState(false);
 
-  const handleStepChange = (step) => {
-    setCurrentStep(step);
-    // Handle any actions you want to perform when the step is changed.
-  };
-
-  const steps = [
-    { id: 1, title: "Step 1: Choose Bank" },
-    { id: 2, title: "Step 2: Payment Confirmation" },
-    { id: 3, title: "Step 3: Upload Screenshot" },
+  const breadcrumbItems = [
+    { id: 1, title: "Pilih Metode", active: true },
+    { id: 2, title: "Bayar", active: false },
+    { id: 3, title: "Tiket", active: false },
   ];
 
-  const handleSubmit = () => {
-    // Process the form data, submit to the server, etc.
-    // Reset the state or navigate to the next page after successful payment.
-    console.log("Payment submitted successfully!");
-    // Reset form data
-    setCurrentStep(1);
-    setBank("");
-    setPaymentConfirmation("");
-    setScreenshot("");
+  const [selectedButtonId, setSelectedButtonId] = useState(null);
+  const handleButtonClick = (itemId) => {
+    setSelectedButtonId(itemId);
+    setIsBankSelected(true);
+  };
+
+  const data = [
+    { title: "BCA", name: "BCA Transfer", id: 1 },
+    { title: "BNI", name: "BNI Transfer", id: 2 },
+    { title: "Mandiri", name: "Mandiri Transfer", id: 3 },
+  ];
+
+  const [isDetailsVisible, setIsDetailsVisible] = useState(false);
+  const toggleDetailsVisibility = () => {
+    setIsDetailsVisible(!isDetailsVisible);
+  };
+
+  const navigate = useNavigate();
+  const confirmButton = () => {
+    navigate("/upload-payment", { state: { selectedButtonId } });
   };
 
   return (
     <div>
-      {/* <BreadcrumbSteps
-        steps={steps}
-        currentStep={currentStep}
-        handleStepChange={handleStepChange}
-      /> */}
-      <div>
-        <ul className="breadcrumbs">
-          {steps.map((step) => (
-            <li
-              key={step.id}
-              className={`breadcrumb-item${
-                currentStep === step.id ? " active" : ""
-              }`}
-              onClick={() => handleStepChange(step.id)}
-            >
-              {step.title}
-            </li>
-          ))}
-        </ul>
+      <div className="pt-5" style={{ backgroundColor: "#F1F3FF" }}>
+        <PaymentHeader breadcrumbItems={breadcrumbItems} />
       </div>
 
       <Hero showButton={false} showText={false} showImg={false} />
@@ -67,59 +54,21 @@ const PaymentSteps = () => {
           <DetailsBar />
           <Row className="">
             <Col lg={8} xs={12} className="">
-              <BankButton />
+              <BankSelectionCard
+                data={data}
+                handleButtonClick={handleButtonClick}
+                selectedButtonId={selectedButtonId}
+              />
             </Col>
             <Col lg={4} xs={12} className="">
-              <DetailPayments />
+              <PaymentDetailsCard
+                isDetailsVisible={isDetailsVisible}
+                toggleDetailsVisibility={toggleDetailsVisibility}
+                confirmButton={confirmButton}
+                isBankSelected={isBankSelected}
+              />
             </Col>
           </Row>
-
-          {currentStep === 1 && (
-            <>
-              <h2>Step 1: Choose Bank</h2>
-              <label>
-                Select Bank:
-                <select value={bank} onChange={(e) => setBank(e.target.value)}>
-                  <option value="">Select Bank</option>
-                  <option value="Bank A">Bank A</option>
-                  <option value="Bank B">Bank B</option>
-                  <option value="Bank C">Bank C</option>
-                </select>
-              </label>
-              <button onClick={() => handleStepChange(2)}>Next</button>
-            </>
-          )}
-
-          {currentStep === 2 && (
-            <>
-              <h2>Step 2: Payment Confirmation</h2>
-              <label>
-                Payment Confirmation:
-                <input
-                  type="text"
-                  value={paymentConfirmation}
-                  onChange={(e) => setPaymentConfirmation(e.target.value)}
-                />
-              </label>
-              <button onClick={() => handleStepChange(1)}>Previous</button>
-              <button onClick={() => handleStepChange(3)}>Next</button>
-            </>
-          )}
-
-          {currentStep === 3 && (
-            <>
-              <h2>Step 3: Upload Screenshot</h2>
-              <label>
-                Upload Screenshot:
-                <input
-                  type="file"
-                  onChange={(e) => setScreenshot(e.target.files[0])}
-                />
-              </label>
-              <button onClick={() => handleStepChange(2)}>Previous</button>
-              <button onClick={handleSubmit}>Submit Payment</button>
-            </>
-          )}
         </Container>
       </Col>
     </div>

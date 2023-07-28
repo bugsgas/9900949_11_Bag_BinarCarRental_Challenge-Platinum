@@ -117,7 +117,6 @@ export default function LoginAdmin() {
                     className="rounded-1"
                     style={{ backgroundColor: "#fbe7e9" }}
                   >
-                    {" "}
                     {err && (
                       <p
                         className="m-0 py-2 text-center"

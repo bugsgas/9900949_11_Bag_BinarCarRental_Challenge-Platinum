@@ -14,7 +14,6 @@ export default function Hero({ showButton, showText, showImg }) {
                 <div className="py-5">
                   {showText && (
                     <>
-                      {" "}
                       <h1>Sewa & Rental Mobil Terbaik di kawasan (Lokasimu)</h1>
                       <p>
                         Selamat datang di Binar Car Rental. Kami menyediakan
