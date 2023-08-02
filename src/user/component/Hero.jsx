@@ -25,7 +25,7 @@ export default function Hero({ showButton, showText, showImg }) {
                   )}
                   <NavLink to="carimobil">
                     {showButton && (
-                      <Button variant="dark"> Mulai Sewa Mobil</Button>
+                      <Button variant="success"> Mulai Sewa Mobil</Button>
                     )}
                   </NavLink>
                 </div>

@@ -62,6 +62,7 @@ export default function Footer() {
               <Col className="pt-5 pt-md-0" md={3} xs={5}>
                 <div className="">
                   <h6>Copyright Binar</h6>
+                  <Image src="../src/assets/logo.png" />
                 </div>
               </Col>
             </Row>

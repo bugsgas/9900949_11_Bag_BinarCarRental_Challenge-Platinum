@@ -71,19 +71,6 @@ input {
   color: #686868;
 }
 
-.example-custom-input {
-  background-color: blue;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.example-custom-input:hover {
-  background-color: darkblue;
-}
-
 .toggle-button {
   cursor: pointer;
   background-color: #007bff;
@@ -162,4 +149,59 @@ input {
 
 .preview-image:hover {
   cursor: pointer;
+}
+
+.testimonyBox {
+  background-color: #f1f3ff;
+  padding: 50px 40px;
+  border-radius: 10px;
+  height: 300px;
+}
+
+.slick-slide {
+  transform: scale(0.8);
+  transition: all 0.4s ease-in-out;
+  padding: 0px 0px;
+}
+
+.details li {
+  font-size: 12px;
+}
+
+.details p {
+  font-size: 12px;
+}
+
+.border {
+  border-color: darkgray;
+  border: 5px;
+}
+
+.button-list {
+  display: inline-block;
+  position: relative;
+  font-size: 16px;
+  border-bottom: 2px solid #eeeeee;
+}
+
+.button-list::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -1.5px;
+  left: 0;
+  background-color: #5cb85f;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.button-list:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.desc-list {
+  color: #686868;
 }

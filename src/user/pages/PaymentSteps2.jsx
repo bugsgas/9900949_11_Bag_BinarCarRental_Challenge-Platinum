@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Container, Col, Card, Row } from "react-bootstrap";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import CountdownComponent from "../component/CountdownComponent";
 import PaymentConfirm from "../component/Payment2/PaymentConfirm";
@@ -12,26 +11,26 @@ import BankMandiri from "../component/Payment2/BankMandiri";
 import PaymentHeader from "../component/PaymentHeader";
 
 const PaymentSteps2 = () => {
-  // const [isDetailVisible, setIsDetailVisible] = useState(true);
-  // const [isShowUploadVisible, setIsShowUploadVisible] = useState(false);
-  // const [isSubmitVisible, setIsSubmitVisible] = useState(false);
-  // Step 1: Create a state variable to control the visibility of the countdown component
   const [isCountdownVisible, setIsCountdownVisible] = useState(true);
-
-  // Step 2: Add a function to toggle the visibility of the countdown component
   const toggleCountdownVisibility = () => {
     setIsCountdownVisible((prevIsVisible) => !prevIsVisible);
   };
+  const currentDate = new Date();
+  const nextDate = new Date(currentDate);
+  nextDate.setDate(currentDate.getDate() + 1);
+  const formattedDate = nextDate.toLocaleString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: false,
+  });
 
   const location = useLocation();
   const { state } = location;
   const { selectedButtonId } = state || {};
-  // const showComponent = () => {
-  //   setIsDetailVisible(false);
-  //   setIsShowUploadVisible(true);
-  //   setIsSubmitVisible(true);
-  //   setIsCountdownVisible(false); // Hide the countdown when Payment Confirm is clicked
-  // };
 
   const breadcrumbItems = [
     { id: 1, title: "Pilih Metode", active: true },
@@ -39,52 +38,121 @@ const PaymentSteps2 = () => {
     { id: 3, title: "Tiket", active: false },
   ];
 
+  const [data, setData] = useState({});
+  let { id } = useParams();
+
+  const getDetailedData = () => {
+    const api = `https://api-car-rental.binaracademy.org/customer/order/${id}`;
+    axios
+      .get(api, {
+        headers: {
+          access_token: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setData(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getDetailedData();
+  }, []);
+
   const renderComponentById = (id) => {
     switch (id) {
       case 1:
-        return <BankBCA />;
+        return <BankBCA data={data} />;
       case 2:
-        return <BankBNI />;
+        return <BankBNI data={data} />;
       case 3:
-        return <BankMandiri />;
+        return <BankMandiri data={data} />;
+      default:
+        return null;
     }
   };
-  const navigate = useNavigate();
-  const confirmButton = () => {
-    navigate("/payment-complete");
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewUrl(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      setPreviewUrl(null);
+    }
   };
+
+  const confirmButton = (e) => {
+    const formData = new FormData();
+    formData.append("slip", selectedFile);
+
+    axios
+      .put(
+        `https://api-car-rental.binaracademy.org/customer/order/${id}/slip`,
+        formData,
+        {
+          headers: {
+            access_token: localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        const orderId = data.id;
+        navigate(`/payment-complete/${orderId}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const navigate = useNavigate();
 
   return (
     <div>
-      {/* Header */}
       <div className="py-5" style={{ backgroundColor: "#F1F3FF" }}>
-        <PaymentHeader breadcrumbItems={breadcrumbItems} />
+        <PaymentHeader
+          showText={true}
+          data={data}
+          breadcrumbItems={breadcrumbItems}
+        />
       </div>
       <Col md={{ span: 10, offset: 1 }}>
         <Container>
           <Row className="">
             <Col lg={8} xs={12} className="">
-              {/* component show */}
               <Card className="mt-5 p-4">
                 <div className="d-flex align-items-center justify-content-between">
                   <div>
-                    <h5 className="m-0">Selesaikan Pembayaran Sebelum</h5>
-                    <p className="m-0">Rabu, 19 Mei 2022 jam 13.00 WIB</p>
+                    <h5 className="m-0 py-1">Selesaikan Pembayaran Sebelum</h5>
+                    <p className="m-0 py-1">{formattedDate} WIB</p>
                   </div>
-                  <div>{isCountdownVisible && <CountdownComponent />}</div>
+                  <div>
+                    {isCountdownVisible && <CountdownComponent data={data} />}
+                  </div>{" "}
+                  {/* Pass data prop to CountdownComponent */}
                 </div>
               </Card>
 
-              <div>
-                {/* Render the component based on dataId */}
-                {renderComponentById(selectedButtonId)}
-              </div>
+              <div>{renderComponentById(selectedButtonId)}</div>
             </Col>
 
             <Col lg={4} xs={12} className="">
               <PaymentConfirm
                 confirmbutton={confirmButton}
                 toggleCountdownVisibility={toggleCountdownVisibility}
+                onPreview={previewUrl}
+                onChange={handleFileChange}
+                onDisable={!selectedFile}
               />
             </Col>
           </Row>

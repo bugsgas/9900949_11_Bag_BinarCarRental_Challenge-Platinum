@@ -4,9 +4,10 @@ import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { bankMandiri } from "./BanksInfo";
 
-function BankMandiri() {
+function BankMandiri({ data }) {
   const [selectedBank, setSelectedBank] = useState(bankMandiri[0].id);
   const textToCopy = "123456789";
+  const priceToCopy = data?.total_price;
   const iconStyle = {
     background: "none",
     border: "none",
@@ -16,14 +17,22 @@ function BankMandiri() {
     cursor: "pointer",
   };
 
-  const handleCopyClick = () => {
+  const handleCopyText = () => {
     const textarea = document.createElement("textarea");
     textarea.value = textToCopy;
     document.body.appendChild(textarea);
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
-    // Optionally, you can show a notification or tooltip to indicate the text was copied.
+    console.log("Text copied to clipboard!");
+  };
+  const handleCopyPrice = () => {
+    const textarea = document.createElement("textarea");
+    textarea.value = priceToCopy;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
     console.log("Text copied to clipboard!");
   };
   return (
@@ -37,7 +46,10 @@ function BankMandiri() {
                 id="BankButtonOption"
                 variant="outline-light text-dark"
                 disabled="true"
-                style={{ padding: "0.3rem 1.5rem" }}
+                style={{
+                  border: "1px solid #D0D0D0",
+                  padding: "0.3rem 1.5rem",
+                }}
               >
                 Mandiri
               </Button>
@@ -49,10 +61,10 @@ function BankMandiri() {
           </Row>
           <Row>
             <div className="my-2">
-              <p style={{ margin: "0" }}>Nomor Rekening</p>
-              <div className="px-3 py-2 border border-primary d-flex justify-content-between align-contents-middle">
+              <p className="mb-2">Nomor Rekening</p>
+              <div className="px-3 py-2 border  d-flex justify-content-between align-contents-middle">
                 <p style={{ margin: "0" }}>{textToCopy}</p>
-                <button style={iconStyle} onClick={handleCopyClick}>
+                <button style={iconStyle} onClick={handleCopyText}>
                   <FaCopy />
                 </button>
               </div>
@@ -60,10 +72,10 @@ function BankMandiri() {
           </Row>
           <Row>
             <div className="my-2">
-              <p style={{ margin: "0" }}>Total Bayar</p>
-              <div className="px-3 py-2 border border-primary d-flex justify-content-between align-contents-middle">
-                <p style={{ margin: "0" }}>{textToCopy}</p>
-                <button style={iconStyle} onClick={handleCopyClick}>
+              <p className="mb-2">Total Bayar</p>
+              <div className="px-3 py-2 border d-flex justify-content-between align-contents-middle">
+                <p style={{ margin: "0" }}>{priceToCopy}</p>
+                <button style={iconStyle} onClick={handleCopyPrice}>
                   <FaCopy />
                 </button>
               </div>
@@ -78,9 +90,10 @@ function BankMandiri() {
           <div>
             <h5>Instructions for Payment</h5>
           </div>
-          <div className="btn-group btn-block custom-btn-group d-flex justify-content-evenly">
+          <div className="py-2 btn-group btn-block custom-btn-group d-flex justify-content-evenly">
             {bankMandiri.map((bank) => (
               <Button
+                className="button-list"
                 key={bank.id}
                 onClick={() => setSelectedBank(bank.id)}
                 variant="none"
@@ -93,11 +106,13 @@ function BankMandiri() {
             ))}
           </div>
           {selectedBank !== null && (
-            <div>
+            <div className="py-2">
               {bankMandiri
                 .find((bank) => bank.id === selectedBank)
                 .text.map((item, index) => (
-                  <p key={index}>{item}</p>
+                  <p className="desc-list" key={index}>
+                    {item}
+                  </p>
                 ))}
             </div>
           )}

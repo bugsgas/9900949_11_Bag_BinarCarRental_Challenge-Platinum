@@ -31,7 +31,11 @@ export default function CarCard({
               </Card.Text>
               <Row>
                 {" "}
-                <Button onClick={cardetail} variant="primary">
+                <Button
+                  className="rounded-1"
+                  onClick={cardetail}
+                  variant="success"
+                >
                   Pilih Mobil
                 </Button>
               </Row>

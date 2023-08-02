@@ -29,8 +29,9 @@ const BankSelectionCard = ({ data, handleButtonClick, selectedButtonId }) => {
                   >
                     <Button
                       id="BankButtonOption"
-                      variant="outline-light text-dark"
-                      style={{ padding: "0.3rem 1.5rem" }}
+                      className="py-2"
+                      variant="text-dark"
+                      style={{ border: "1px solid #D0D0D0", width: "6.5rem" }}
                     >
                       {item.title}
                     </Button>

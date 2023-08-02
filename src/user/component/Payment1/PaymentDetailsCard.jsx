@@ -9,14 +9,48 @@ const PaymentDetailsCard = ({
   toggleDetailsVisibility,
   confirmButton,
   isBankSelected,
+  data,
 }) => {
+  // Function to calculate the difference in days between two dates
+  const calculateDateDifference = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const timeDifference = end.getTime() - start.getTime();
+    const dayDifference = timeDifference / (1000 * 3600 * 24);
+    return dayDifference;
+  };
+
+  const daysDifference = calculateDateDifference(
+    data.start_rent_at,
+    data.finish_rent_at
+  );
+  const resultPlusOne = daysDifference + 1;
+
+  const getCategoryValue = (category) => {
+    if (!category) {
+      return "Unknown Category";
+    }
+    switch (category.toLowerCase()) {
+      case "small":
+        return "2-4 Orang";
+      case "medium":
+        return "6-8 Orang";
+      case "large":
+        return "8+ Orang";
+      default:
+        return "Unknown Category";
+    }
+  };
   return (
-    <Card className="p-5">
+    <Card className="p-3">
       <div className="detail-div">
-        <h5 className="tentang">Innova</h5>
-        <h5 className="tentang">6 - 8 orang</h5>
+        <h6 className="tentang m-0">{data?.Car?.name}</h6>
+        <p className="tentang pt-1 m-0">
+          {getCategoryValue(data?.Car?.category)}
+        </p>
+        <hr />
       </div>
-      <div className="dropdown d-flex align-items-center">
+      <div className="mb-3 dropdown d-flex align-items-center">
         <h6 className="pe-2 m-0">Details</h6>
         <div
           className={`toggle-icon ${isDetailsVisible ? "rotate" : ""}`}
@@ -28,14 +62,27 @@ const PaymentDetailsCard = ({
 
       {isDetailsVisible && (
         <div className="details">
-          <h5>Harga</h5>
-          <li>Sewa Mobil Rp.500.000 x 7 Hari</li>
+          <h6>Harga</h6>
+          <div className="d-flex align-items-center justify-content-between">
+            <li>
+              Sewa Mobil Rp.{data?.Car?.price} x {resultPlusOne} Hari
+            </li>
+            <p className="m-0">Rp. {data?.total_price}</p>
+          </div>
+
           <br />
-          <h5>Biaya Lainnya</h5>
-          <li>Pajak</li>
-          <li>Biaya makan sopir</li>
+          <h6>Biaya Lainnya</h6>
+          <div className="d-flex align-items-center justify-content-between">
+            <li>Pajak</li>
+            <p style={{ color: "green" }}>Termasuk</p>
+          </div>
+          <div className="d-flex align-items-center justify-content-between">
+            <li>Biaya makan sopir</li>
+            <p style={{ color: "green" }}>Termasuk</p>
+          </div>
+
           <br />
-          <h5>Belum Termasuk</h5>
+          <h6>Belum Termasuk</h6>
           <li>Bensin</li>
           <li>Tol dan Parkir</li>
           <hr />
@@ -43,11 +90,12 @@ const PaymentDetailsCard = ({
       )}
 
       <div className="total d-flex justify-content-between">
-        <h5>Total</h5>
-        <h5>Rp.500.000</h5>
+        <h6>Total</h6>
+        <h6>Rp. {data?.total_price}</h6>
       </div>
 
       <Button
+        className="my-2"
         id="ConfirmButton"
         onClick={confirmButton}
         disabled={!isBankSelected}

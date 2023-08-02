@@ -43,7 +43,7 @@ export default function Faq() {
               <Col sm={7}>
                 {faqlist.map((item, key) => (
                   <Accordion defaultActiveKey="0">
-                    <Accordion.Item eventKey={key}>
+                    <Accordion.Item eventKey={key} className="my-3">
                       <Accordion.Header>{item.question}</Accordion.Header>
                       <Accordion.Body>{item.answer}</Accordion.Body>
                     </Accordion.Item>

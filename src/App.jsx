@@ -36,9 +36,9 @@ const router = createBrowserRouter(
         <Route index element={<LandingPage />} />
         <Route path="carimobil" element={<CariMobil />} />
         <Route path="car/:id" element={<DetailMobil />} />
-        <Route path="confirm-payment" element={<PaymentSteps />} />
-        <Route path="upload-payment" element={<PaymentSteps2 />} />
-        <Route path="payment-complete" element={<PaymentSteps3 />} />
+        <Route path="confirm-payment/:id" element={<PaymentSteps />} />
+        <Route path="upload-payment/:id" element={<PaymentSteps2 />} />
+        <Route path="payment-complete/:id" element={<PaymentSteps3 />} />
       </Route>
 
       {/* admin */}

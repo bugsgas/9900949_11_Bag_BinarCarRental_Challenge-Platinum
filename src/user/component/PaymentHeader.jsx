@@ -3,7 +3,7 @@ import { Col, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-function PaymentHeader({ breadcrumbItems }) {
+function PaymentHeader({ breadcrumbItems, data, showText }) {
   return (
     <Col md={{ span: 10, offset: 1 }}>
       <Container className="d-flex align-items-center justify-content-between">
@@ -13,7 +13,10 @@ function PaymentHeader({ breadcrumbItems }) {
             className="d-flex btn btn-link custom-button"
           >
             <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
-            <h6 className="m-0">Kembali</h6>
+            <div className="d-flex flex-column align-items-start">
+              <h6 className="">Kembali</h6>
+              {showText && <p>Order ID: {data.id}</p>}
+            </div>
           </button>
         </div>
 

@@ -1,7 +1,15 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
-import { Nav, Navbar, NavDropdown, Offcanvas } from "react-bootstrap";
+import React from "react";
 import { NavLink } from "react-router-dom";
+import {
+  Container,
+  Col,
+  Navbar,
+  Nav,
+  NavDropdown,
+  Offcanvas,
+  Button,
+  Image,
+} from "react-bootstrap";
 
 export default function Header() {
   const token = localStorage.getItem("token");
@@ -10,22 +18,18 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.clear();
     window.location.reload(false);
-    setToken("");
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "#F1F3FF",
-        paddingTop: "24px",
-      }}
-    >
+    <div style={{ backgroundColor: "#F1F3FF", paddingTop: "24px" }}>
       <Col md={{ span: 10, offset: 1 }}>
         <Container>
           {["xl"].map((expand) => (
-            <Navbar key={expand} expand={expand} className="">
+            <Navbar key={expand} expand={expand}>
               <NavLink to="/">
-                <Navbar.Brand>Binar</Navbar.Brand>
+                <Navbar.Brand>
+                  <Image src="../src/assets/logo.png" />
+                </Navbar.Brand>
               </NavLink>
 
               <Navbar.Toggle
@@ -43,23 +47,12 @@ export default function Header() {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <Nav className="justify-content-end flex-grow-1 pe-3">
-                    <Nav.Link href="<Faq/>">Our Services</Nav.Link>
+                    <Nav.Link href="#action2">Our Services</Nav.Link>
                     <Nav.Link href="#action2">Why Us</Nav.Link>
                     <Nav.Link href="#action2">Testimony</Nav.Link>
                     <Nav.Link className="me-2" href="#action2">
                       Faq
                     </Nav.Link>
-                    {/* {token && (
-                      <NavDropdown title={role} id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">
-                          Profile
-                        </NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item onClick={handleLogout}>
-                          Logout
-                        </NavDropdown.Item>
-                      </NavDropdown>
-                    )} */}
                     {token ? (
                       <>
                         <NavDropdown
@@ -77,12 +70,16 @@ export default function Header() {
                       <>
                         <Button
                           href="/signin"
-                          className="me-2"
-                          variant="secondary"
+                          className="me-2 rounded-1"
+                          variant="primary"
                         >
                           Sign In
                         </Button>
-                        <Button href="/signup" variant="dark">
+                        <Button
+                          className="rounded-1"
+                          href="/signup"
+                          variant="success"
+                        >
                           Sign Up
                         </Button>
                       </>

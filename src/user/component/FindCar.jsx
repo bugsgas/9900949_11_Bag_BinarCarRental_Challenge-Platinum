@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
@@ -9,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function FindCar({ showCard }) {
   const [data, setData] = useState([]);
-  const [err, setErr] = useState([]);
+  const [err, setErr] = useState("");
   const [form, setForm] = useState({
     name: "",
     category: "",
@@ -27,13 +26,12 @@ export default function FindCar({ showCard }) {
     axios
       .get(api)
       .then((res) => {
-        // console.log(res);
         setData(res.data.cars);
       })
       .catch((err) => {
         setErr(err.message);
+        errorState();
       });
-    errorState();
   };
 
   const errorState = () => {
@@ -46,6 +44,7 @@ export default function FindCar({ showCard }) {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
+
   const navigate = useNavigate();
   const goToSearch = (id) => navigate(`/car/${id}`);
 
@@ -68,7 +67,7 @@ export default function FindCar({ showCard }) {
                     value={form.name}
                     onChange={handleChange}
                     placeholder="Innova"
-                  ></Form.Control>
+                  />
                 </Col>
                 <Col md={2} xs={12} className="pt-2">
                   <label>Kapasitas</label>
@@ -79,9 +78,7 @@ export default function FindCar({ showCard }) {
                     value={form.category}
                     onChange={handleChange}
                   >
-                    <option value="" selected disabled hidden>
-                      Kapasitas Mobil
-                    </option>
+                    <option value="">Kapasitas Mobil</option>
                     <option value="small">2 - 4 Orang</option>
                     <option value="medium">4 - 6 Orang</option>
                     <option value="large">6 - 8 Orang</option>
@@ -90,22 +87,22 @@ export default function FindCar({ showCard }) {
                 <Col md={2} xs={12} className="pt-2">
                   <label>Harga</label>
                   <Form.Control
-                    name="harga"
+                    name="minPrice"
                     type="string"
                     value={form.minPrice}
                     onChange={handleChange}
                     placeholder="Harga Terendah"
-                  ></Form.Control>
+                  />
                 </Col>
                 <Col md={2} xs={12} className="pt-2">
                   <label>Harga</label>
                   <Form.Control
-                    name="harga"
+                    name="maxPrice"
                     type="string"
                     value={form.maxPrice}
                     onChange={handleChange}
                     placeholder="Harga Tertinggi"
-                  ></Form.Control>
+                  />
                 </Col>
                 <Col md={2} xs={12} className="pt-2">
                   <label>Status</label>
@@ -125,7 +122,7 @@ export default function FindCar({ showCard }) {
                   <label></label>
                   <Form>
                     <Button
-                      className=" btn btn-success"
+                      className="rounded-1 btn btn-success"
                       onClick={getDetailedData}
                     >
                       Cari Mobil

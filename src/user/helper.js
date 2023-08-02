@@ -22,3 +22,24 @@ export const tentangData = {
     "Tidak termasuk akomodasi penginapan",
   ],
 };
+
+export const testimoniList = [
+  {
+    text: "“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod”",
+    person: "John Doe, Jakarta",
+    pic: "/src/assets/img_photo.png",
+    star: "3",
+  },
+  {
+    text: "“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod”",
+    person: "Ryan Gosling 23, Malang",
+    pic: "/src/assets/img_photo1.png",
+    star: "5",
+  },
+  {
+    text: "“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod”",
+    person: "Bruce Lee 29, Yogyakarta",
+    pic: "/src/assets/img_photo.png",
+    star: "4.5",
+  },
+];

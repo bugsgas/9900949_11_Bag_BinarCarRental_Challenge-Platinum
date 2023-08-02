@@ -1,0 +1,55 @@
+/* style.css */
+.dateRange {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+/* Style the input field of the date picker */
+.react-datepicker__input-container input {
+  padding: 10px;
+  border: 1px solid #35b0a7;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 286px;
+}
+
+/* Style the date picker calendar popup */
+.react-datepicker {
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  width: 286px;
+}
+
+.react-datepicker__month {
+  padding-bottom: 15px;
+}
+
+.react-datepicker__month-container {
+  width: 286px;
+}
+
+/* Style the selected day in the calendar */
+
+.react-datepicker__day:hover {
+  background-color: #257d77; /* Set your desired hover background color */
+  color: #fff; /* Set the text color to white for better visibility */
+}
+
+/* Style the keyboard-selected day in the calendar */
+.react-datepicker__day--keyboard-selected {
+  background-color: #22ccc1;
+  color: #fff;
+}
+
+.react-datepicker__day--in-selecting-range:not(
+    .react-datepicker__day--in-range,
+    .react-datepicker__month-text--in-range,
+    .react-datepicker__quarter-text--in-range,
+    .react-datepicker__year-text--in-range
+  ) {
+  background-color: #35b0a7;
+  color: #fff;
+}
