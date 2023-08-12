@@ -8,6 +8,7 @@ import {
 //layouts
 import LayoutCustomer from "./user/layout/LayoutCustomer";
 import LayoutAdmin from "./admin/layout/LayoutAdmin";
+import LayoutAdminV2 from "./admin/layout/LayoutAdminV2";
 import NotFound from "./user/NotFound";
 
 //pages
@@ -25,6 +26,7 @@ import AddCar from "./admin/pages/AddCar";
 import PaymentSteps from "./user/pages/PaymentSteps";
 import PaymentSteps2 from "./user/pages/PaymentSteps2";
 import PaymentSteps3 from "./user/pages/PaymentSteps3";
+import Test from "./admin/pages/Test";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,7 +45,7 @@ const router = createBrowserRouter(
 
       {/* admin */}
       <Route path="admin-signin" element={<LoginAdmin />} />
-      <Route path="/" element={<LayoutAdmin />}>
+      <Route path="/" element={<LayoutAdminV2 />}>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="listcar" element={<CarAdmin />} />
         <Route path="listcar/edit/:id" element={<EditCar />} />
@@ -51,6 +53,7 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path="*" element={<NotFound />} />
+      <Route path="test" element={<Test />} />
     </Route>
   )
 );

@@ -101,7 +101,7 @@ export default function CarAdmin() {
 
   return (
     <Container>
-      <div className="d-flex justify-content-between align-items-center pt-3 pb-2 px-2">
+      <div className="d-flex justify-content-between align-items-center pb-2 px-2">
         <h3 className="">List Car</h3>
       </div>
 
