@@ -52,32 +52,10 @@ export default function CariMobil() {
     }, 4000);
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
-
-  const goToSearch = (id) => navigate(`/car/${id}`);
-
   return (
     <>
       <Hero showButton={false} showText={true} showImg={true} />
       <FindCar showCard={true} />
-      {/* <Col md={{ span: 10, offset: 1 }}>
-        <Row className="d-flex">
-          {data.map((item) => (
-            <Col md={3} xs={6} className="px-4">
-              <CarCard
-                carname={item.name}
-                carsize={item.category}
-                carprice={item.price}
-                carimage={item.image}
-                cardetail={() => goToSearch(item.id)}
-              />
-            </Col>
-          ))}
-        </Row>
-      </Col> */}
     </>
   );
 }

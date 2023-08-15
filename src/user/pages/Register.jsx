@@ -118,10 +118,12 @@ export default function Register() {
           </div>
         </div>
       </Col>
-      <Col lg={6} style={{ backgroundColor: "f1f1f1" }}>
+      <Col lg={6} style={{ backgroundColor: "#0D28A6" }}>
         <Image
+          fluid
           className="d-none d-lg-block d-xl-block"
           src="./src/assets/pict.png"
+          style={{ height: "100vh", width: "auto" }}
         ></Image>
       </Col>
     </div>

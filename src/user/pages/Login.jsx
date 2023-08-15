@@ -57,6 +57,7 @@ export default function Login() {
           fluid
           className="d-none d-lg-block d-xl-block"
           src="./src/assets/pict.png"
+          style={{ height: "100vh", width: "auto" }}
         ></Image>
       </Col>
 

@@ -7,7 +7,6 @@ import {
 
 //layouts
 import LayoutCustomer from "./user/layout/LayoutCustomer";
-import LayoutAdmin from "./admin/layout/LayoutAdmin";
 import LayoutAdminV2 from "./admin/layout/LayoutAdminV2";
 import NotFound from "./user/NotFound";
 

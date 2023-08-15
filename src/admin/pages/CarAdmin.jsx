@@ -16,6 +16,7 @@ import ToastContainer from "react-bootstrap/ToastContainer";
 import CarCardAdmin from "../component/CarCardAdmin";
 import PopUp from "../component/PopUp";
 import SortButton from "../component/SortButton";
+import CarSearchForm from "../component/CarSearchForm";
 
 export default function CarAdmin() {
   const navigate = useNavigate();
@@ -24,8 +25,8 @@ export default function CarAdmin() {
   const [showToast, setShowToast] = useState(false);
   const [data, setData] = useState([]);
   const [err, setErr] = useState([]);
+  const [name, setName] = useState("");
   const [form, setForm] = useState({
-    name: "",
     category: "",
   });
 
@@ -41,11 +42,10 @@ export default function CarAdmin() {
   });
 
   const getDetailedData = async () => {
+    event.preventDefault();
     try {
       const res = await axios.get(
-        `https://api-car-rental.binaracademy.org/admin/v2/car?name=${
-          form.name
-        }&category=${form.category.toLowerCase()}&pageSize=12`,
+        `https://api-car-rental.binaracademy.org/admin/v2/car?name=${name}&category=${form.category.toLowerCase()}&pageSize=4`,
         {
           headers: {
             access_token: localStorage.getItem("tokenadmin"),
@@ -99,6 +99,11 @@ export default function CarAdmin() {
     setForm({ ...form, [name]: value });
   };
 
+  const handleSearchSubmit = (searchName) => {
+    setName(searchName);
+    getDetailedData();
+  };
+
   return (
     <Container>
       <div className="d-flex justify-content-between align-items-center pb-2 px-2">
@@ -108,7 +113,7 @@ export default function CarAdmin() {
       <div>
         <SortButton handleChange={handleChange} handleAdd={handleAdd} />
       </div>
-
+      <CarSearchForm onSubmit={handleSearchSubmit} />
       {showToast && (
         <div style={{ position: "relative" }}>
           <ToastContainer position="top-center">

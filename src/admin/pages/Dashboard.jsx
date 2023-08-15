@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import OurServices from "../../user/component/LandingPage/OurServices";
+import Chart from "../component/Chart";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <OurServices />
+      <Chart />
     </>
   );
 }

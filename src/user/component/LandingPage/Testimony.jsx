@@ -10,16 +10,47 @@ import Rating from "@mui/material/Rating";
 
 const Testimony = () => {
   const [settings, setSettings] = useState({
-    className: "center",
-    centerMode: true,
-    infinite: true,
-    centerPadding: "300px",
-    slidesToShow: 1,
-    speed: 1000,
-    dots: true,
+    // className: "center",
+    // centerMode: true,
+    // centerPadding: "300px",
+
     autoplay: true,
     autoplaySpeed: 5000,
     pauseOnHover: true,
+    className: "center",
+    centerMode: true,
+    dots: true,
+    infinite: false,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 4,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 3,
+          initialSlide: 3,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   });
 
   return (

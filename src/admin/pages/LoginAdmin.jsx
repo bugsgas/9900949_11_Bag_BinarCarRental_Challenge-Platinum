@@ -70,7 +70,7 @@ export default function LoginAdmin() {
               fluid
               className="d-none d-lg-block d-xl-block"
               src="./src/assets/img1.png"
-              style={{ height: "", width: "auto" }}
+              style={{ height: "100vh", width: "auto" }}
             ></Image>
           </Col>
           <Col lg={4}>
