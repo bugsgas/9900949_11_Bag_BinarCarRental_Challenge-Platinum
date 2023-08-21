@@ -1,19 +1,15 @@
-import { useState } from "react";
+import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col, Button, Image, Card } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import { testimoniList } from "../../helper";
-
 import Rating from "@mui/material/Rating";
 
 const Testimony = () => {
-  const [settings, setSettings] = useState({
-    // className: "center",
-    // centerMode: true,
-    // centerPadding: "300px",
-
+  // Settings for the slider
+  const settings = {
     autoplay: true,
     autoplaySpeed: 5000,
     pauseOnHover: true,
@@ -23,14 +19,14 @@ const Testimony = () => {
     infinite: false,
     speed: 1000,
     slidesToShow: 1,
-    slidesToScroll: 4,
+    slidesToScroll: 1,
     initialSlide: 0,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 3,
+          slidesToScroll: 1,
           infinite: true,
           dots: true,
         },
@@ -39,7 +35,7 @@ const Testimony = () => {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 3,
+          slidesToScroll: 1,
           initialSlide: 3,
         },
       },
@@ -51,7 +47,7 @@ const Testimony = () => {
         },
       },
     ],
-  });
+  };
 
   return (
     <div className="py-5">
@@ -60,10 +56,17 @@ const Testimony = () => {
         <p>Berbagai review positif dari para pelanggan kami</p>
       </div>
       <Slider {...settings}>
-        {testimoniList.map((item) => (
-          <div className="d-flex align-items-center px-5 testimonyBox">
+        {testimoniList.map((item, index) => (
+          <div
+            key={index}
+            className="d-flex align-items-center px-5 testimonyBox"
+          >
             <div className="picture mx-3">
-              <Image style={{ width: "100px" }} src={item.pic}></Image>
+              <Image
+                style={{ width: "100px" }}
+                src={item.pic}
+                alt={item.person}
+              />
             </div>
             <div className="testimony px-3">
               <Rating

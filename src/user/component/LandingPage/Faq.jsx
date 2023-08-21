@@ -1,7 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col, Button, Image, Card } from "react-bootstrap";
-import Accordion from "react-bootstrap/Accordion";
+import { Container, Row, Col, Accordion } from "react-bootstrap";
 
 export default function Faq() {
   const faqlist = [
@@ -14,8 +13,8 @@ export default function Faq() {
       answer: "Lorem",
     },
     {
-      question: "Berapa hari sebelumnya sabaiknya booking sewa mobil?",
-      answr: "Lorem",
+      question: "Berapa hari sebelumnya sebaiknya booking sewa mobil?",
+      answer: "Lorem",
     },
     {
       question: "Apakah Ada biaya antar-jemput?",
@@ -28,32 +27,28 @@ export default function Faq() {
   ];
 
   return (
-    <>
-      <div
-        className="py-5"
-        style={{ backgroundColor: "#FFFFFF", padding: "0px 0px" }}
-      >
-        <Col md={{ span: 10, offset: 1 }}>
-          <Container>
-            <Row>
-              <Col sm={5}>
-                <h3>Frequently Ask Questions</h3>
-                <p>Lorem Ipsum Dolor</p>
-              </Col>
-              <Col sm={7}>
-                {faqlist.map((item, key) => (
-                  <Accordion defaultActiveKey="0">
-                    <Accordion.Item eventKey={key} className="my-3">
-                      <Accordion.Header>{item.question}</Accordion.Header>
-                      <Accordion.Body>{item.answer}</Accordion.Body>
-                    </Accordion.Item>
-                  </Accordion>
-                ))}
-              </Col>
-            </Row>
-          </Container>
-        </Col>
-      </div>
-    </>
+    <div
+      className="py-5"
+      style={{ backgroundColor: "#FFFFFF", padding: "0px 0px" }}
+    >
+      <Container>
+        <Row>
+          <Col sm={5}>
+            <h3>Frequently Asked Questions</h3>
+            <p>Lorem Ipsum Dolor</p>
+          </Col>
+          <Col sm={7}>
+            <Accordion defaultActiveKey="0">
+              {faqlist.map((item, key) => (
+                <Accordion.Item eventKey={key} key={key} className="my-3">
+                  <Accordion.Header>{item.question}</Accordion.Header>
+                  <Accordion.Body>{item.answer}</Accordion.Body>
+                </Accordion.Item>
+              ))}
+            </Accordion>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 }
